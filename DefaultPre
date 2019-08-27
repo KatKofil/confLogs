@@ -1,0 +1,40 @@
+#!/bin/sh
+#
+# Note that any setup should come before the sessreg command as
+# that must be 'exec'ed for the pid to be correct (sessreg uses the parent
+# pid)
+#
+# Note that output goes into the .xsession-errors file for easy debugging
+#
+PATH="/usr/bin:$PATH"
+
+guestuser="enad" 
+if [ $USER=$guestuser ]
+then 
+
+   /usr/bin/logger -p local6.info "C-$USER"
+   #echo "`date +%Y-%m-%d-%H:%m:%S` Connexion de l'utilisateur Guest" >>  /var/log/guestuser.log 
+   # Delete all file of /tmp/enad session 
+   rm -rf /tmp/enad 
+   # Create a blank /tmp/enad dir
+   mkdir /tmp/enad
+
+   # Create a symlink on /scanner folder to /tmp/enad/scanner
+   ln -s /scanner /tmp/enad/scanner 
+
+   # Test : on copie tout le home
+   #cp -r /home/atos/ /tmp/enad
+
+   #### Add Gnome Config ####
+   cp -r /home/atos/.config/ /tmp/enad
+
+   #### Add firefox config ####
+   cp -r /home/atos/.mozilla /tmp/enad
+
+   cp -r /home/atos/.local/ /tmp/enad
+ 
+   # add right to guest user on /tmp/enad
+   chown -R enad:enad /tmp/enad
+fi
+
+

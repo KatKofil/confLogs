@@ -1,0 +1,91 @@
+
+---
+  - hosts: enad2 enad1
+    remote_user: atos 
+    tasks:
+# Chargement du fichier de configs de rsyslog
+    - name: Update file for rsyslog
+      become: yes
+      copy:
+        src: /root/confLogs/rsyslog.conf
+        dest: /etc/rsyslog.conf
+        owner: atos
+        group: atos
+        mode: 0644
+# Restar de rsyslog
+    - name: Restart service rsyslog
+      become: yes
+      systemd:
+        daemon_reload: yes
+        state: restarted
+        name: rsyslog
+
+# Chargement du fichier de configs de tinyproxy
+    - name: Update file for tinyproxy
+      become: yes
+      copy:
+        src: /root/confLogs/tinyproxy.conf
+        dest: /etc/tinyproxy/tinyproxy.conf
+        owner: atos
+        group: atos
+        mode: 0644
+# Restar de tinyproxy
+    - name: Restart service tinyproxy
+      become: yes
+      systemd:
+        daemon_reload: yes
+        state: restarted
+        name: tinyproxy
+
+# Chargement du fichier de configs de cups
+    - name: Update file for cups
+      become: yes
+      copy:
+        src: /root/confLogs/cups-files.conf
+        dest: /etc/cups/cups-file.conf
+        owner: atos
+        group: atos
+        mode: 0644
+# Restar de cups
+    - name: Restart service cups
+      become: yes
+      systemd:
+        daemon_reload: yes
+        state: restarted
+        name: cups
+
+# Chargement du fichier de configs de samba
+    - name: Update file for samba
+      become: yes
+      copy:
+        src: /root/confLogs/smb.conf
+        dest: /etc/samba/smb.conf
+        owner: atos
+        group: atos
+        mode: 0644
+# Restar de samba
+    - name: Restart service smbd
+      become: yes
+      systemd:
+        daemon_reload: yes
+        state: restarted
+        name: smbd
+
+# Chargement du fichier de configs de PostSession
+    - name: Update file for PostSession
+      become: yes
+      copy:
+        src: /root/confLogs/DefaultPost
+        dest: /etc/gdm3/PostSession/Default
+        owner: atos
+        group: atos
+        mode: a+x
+# Chargement du fichier de configs de PreSession
+    - name: Update file for PreSession
+      become: yes
+      copy:
+        src: /root/confLogs/DefaultPre
+        dest: /etc/gdm3/PreSession/Default
+        owner: atos
+        group: atos
+        mode: a+x
