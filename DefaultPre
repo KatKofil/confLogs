@@ -11,9 +11,8 @@ PATH="/usr/bin:$PATH"
 guestuser="enad" 
 if [ $USER=$guestuser ]
 then 
-
+   # Redirect msg to syslog
    /usr/bin/logger -p local6.info "C-$USER"
-   #echo "`date +%Y-%m-%d-%H:%m:%S` Connexion de l'utilisateur Guest" >>  /var/log/guestuser.log 
    # Delete all file of /tmp/enad session 
    rm -rf /tmp/enad 
    # Create a blank /tmp/enad dir
