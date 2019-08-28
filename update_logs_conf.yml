@@ -1,6 +1,6 @@
 
 ---
-  - hosts: enad2 enad1
+  - hosts: enad
     remote_user: atos 
     tasks:
 # Chargement du fichier de configs de rsyslog
@@ -12,7 +12,7 @@
         owner: atos
         group: atos
         mode: 0644
-# Restar de rsyslog
+# Restart de rsyslog
     - name: Restart service rsyslog
       become: yes
       systemd:
@@ -29,7 +29,7 @@
         owner: atos
         group: atos
         mode: 0644
-# Restar de tinyproxy
+# Restart de tinyproxy
     - name: Restart service tinyproxy
       become: yes
       systemd:
@@ -46,7 +46,7 @@
         owner: atos
         group: atos
         mode: 0644
-# Restar de cups
+# Restart de cups
     - name: Restart service cups
       become: yes
       systemd:
@@ -63,7 +63,7 @@
         owner: atos
         group: atos
         mode: 0644
-# Restar de samba
+# Restart de samba
     - name: Restart service smbd
       become: yes
       systemd:
