@@ -3,8 +3,8 @@
 guestuser="enad"
 if [ $USER=$guestuser ]
 then
-  /usr/bin/logger -p local6.info "D-$USER"	
-  #echo "`date +%Y-%m-%d-%H:%m:%S` Déconnexion de l'utilisateur Guest" >>  /var/log/guestuser.log
+  # Redirect msg to syslog
+  /usr/bin/logger -p local6.info "D-$USER"
 fi
 
 exit 0
